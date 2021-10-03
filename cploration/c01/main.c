@@ -1,22 +1,23 @@
 #include <stdio.h>
-int main() {
-  #include <stdio.h>
-
 /* Ex.1: Return the larger value */
 int max(int x, int y)
 {
-  if (x>y) {
-    return(x);
-  } else if (y>x) {
-    return(y)
-  }
+  if (x >= y) {
+       return(x);
+   } else if (y > x) {
+       return(y);
+   }
+
+   return x;
 }
 
 /* Ex.2: Add [0..100] and return the sum */
-int add100()
+int add100(void)
 {
-  int i = 100;
-  sum += i;
+    int i = 100;
+    int sum = 0;
+    sum += i;
+
   return(sum);
 }
 
