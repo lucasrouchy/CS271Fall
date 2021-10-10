@@ -25,10 +25,23 @@ printf("%s %s!\n\n", hello, name);
 /** Exercise 2 **/
 int len ;
 len = strlen(name);
-printf("your name is %d\n", len, "characters long" );
+printf("your name is %d characters long\n", len);
 
 /** Exercise 3 **/
 char prof[8] = {'P','a','t','r','i','c','k','\0'};
+int  len= name;
+int len2= prof;
+strcmp(name,prof);
+if (len > len2) {
+  printf("%s is before %s",name,prof);
+}
+else if (len < len2){
+  printf("%s is after %s",name,prof);
+}
+
+else if (len = len2) {
+  printf("%s is the same %s",name,prof);
+}
 
   return 0;
 }
