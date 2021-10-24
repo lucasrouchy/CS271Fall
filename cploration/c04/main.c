@@ -1,5 +1,5 @@
-//exercise 3
 #include "parser.h"
+
 int main(int argc, char* argv[]) {
     // check that one argument has been passed
     if (argc != 2) {
@@ -19,3 +19,4 @@ int main(int argc, char* argv[]) {
     fclose(fin);
 
     return 0;
+}
