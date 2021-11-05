@@ -18,3 +18,8 @@ bool is_Ctype(const char *);
 typedef int16_t hack_addr;
 typedef int16_t opcode;
 char *extract_label(const char *line, char* label);
+enum inst_type {
+  invalid = -1,
+  Atype,
+  Ctype,
+};
