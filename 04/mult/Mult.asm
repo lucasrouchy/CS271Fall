@@ -10,3 +10,15 @@
 // R0 >= 0, R1 >= 0, and R0*R1 < 32768.
 
 // Put your code here.
+// D = R1
+@R1
+D=M
+
+// i = R1
+@i
+M = D
+// R2 = 0
+@R2
+M = 0
+
+    
