@@ -23,3 +23,26 @@ enum inst_type {
   Atype,
   Ctype,
 };
+typedef struct
+c_instruction {
+  opcode a: 1;
+  opcode comp: 6;
+  opcode dest:3;
+  opcode jump: 3;
+
+
+}c_instruction;
+
+typedef struct
+a_instruction {
+  union hack_addr {
+      hack_addr address;
+      char * label;
+  };
+  bool is_addr;
+}a_instruction;
+
+typedef struct
+instruction {
+  
+};

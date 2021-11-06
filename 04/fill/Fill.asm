@@ -12,3 +12,10 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+(LOOPKBD)
+    // initialization R2 = 0
+    @R2
+    M = 0
+    // read keyboard
+    @KBD
