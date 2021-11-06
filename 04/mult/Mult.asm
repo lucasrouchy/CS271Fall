@@ -12,8 +12,7 @@
 // Put your code here.
 // D = R1
 @R1
-D=M
-
+D = M
 // i = R1
 @i
 M = D
@@ -28,7 +27,16 @@ M = 0
     D;JEQ
     // R2 = R2 + R0
     @R0
-    D=M
+    D = M
     @R2
     M = D + M
-    
+    // i--
+    @i
+    M = M - 1
+    // goto LOOP
+    @LOOP
+    0;JMP
+(STOP)
+    // infinite loop (we are done here)
+    @STOP
+    0;JMP
