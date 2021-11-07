@@ -19,3 +19,13 @@
     M = 0
     // read keyboard
     @KBD
+    D = M
+    // R1 = *(@KBD)
+    @R1
+    M = D
+    // R2 = -1, if KBD != 0
+    @SKIP
+    D;JEQ
+    @R2
+    M = -1
+(SKIP)
