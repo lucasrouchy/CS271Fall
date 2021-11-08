@@ -50,6 +50,13 @@
         @R0
         M = D
         A = M
+        // R2 = -1 or 0 depending of the @KBD
+        @R2
+        D = M
+        // write -1 or 0 to screen
+        @R0
+        A = M
+        M = D
         // off++
         @off
         M = M + 1
