@@ -29,3 +29,34 @@
     @R2
     M = -1
 (SKIP)
+    // off = 0
+    @off
+    M = 0
+    (LOOP)
+        // if (off == 8192) goto STOP
+        @8192
+        D = A
+        @off
+        D = M - D
+        @STOP
+        D;JEQ
+        // write 16 pixels black (@SCREEN+@off)
+        @off
+        D = M
+        @SCREEN
+        A = A + D
+        D = A
+        // R0 = @SCREEN+@off
+        @R0
+        M = D
+        A = M
+        // off++
+        @off
+        M = M + 1
+        // goto LOOP
+        @LOOP
+        0;JMP
+    (STOP)
+        // check KBD
+        @LOOPKBD
+        0;JMP
