@@ -15,7 +15,7 @@ void parse(FILE* file) {
 
         else if (is_label(line)){
           inst_type= 'L';
-          char *new_label[sizeof(line)];
+          char new_label[sizeof(line)];
           extract_label(line,new_label);
           printf("%c  %s\n",inst_type, new_label );
           continue;

@@ -44,5 +44,8 @@ a_instruction {
 
 typedef struct
 instruction {
-  
+  union AorC {
+    enum inst_type Atype;
+    enum inst_type Ctype;
+  };
 };
