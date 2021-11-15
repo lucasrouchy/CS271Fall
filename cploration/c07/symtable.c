@@ -27,3 +27,18 @@ void insert(char* key, hack_addr addr) {
 
    hashArray[hashIndex] = item;
 }
+//Exercice 5
+Symbol* find(char* key) {
+    int hashIndex = hash(key);
+
+    while(hashArray[hashIndex] != NULL) {
+      if(hashArray[hashIndex]->name == key)
+          return hashArray[hashIndex];
+
+      ++hashIndex;
+
+      hashIndex %= SYMBOL_TABLE_SIZE;
+    }
+
+    return NULL;
+}
