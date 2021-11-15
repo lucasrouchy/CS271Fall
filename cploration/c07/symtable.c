@@ -42,3 +42,14 @@ Symbol* find(char* key) {
 
     return NULL;
 }
+
+//Exercice 6
+void display_table(void) {
+    for(int i = 0; i < SYMBOL_TABLE_SIZE; i++) {
+        if(hashArray[i] != NULL)
+            printf(" (%s,%d)", hashArray[i]->name, hashArray[i]->address);
+        else
+            printf(" ~~ ");
+    }
+   printf("\n");
+}
