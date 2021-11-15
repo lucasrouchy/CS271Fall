@@ -10,3 +10,20 @@ int hash(char* str) {
 
     return hash % SYMBOL_TABLE_SIZE;
 }
+//Exercice 4
+void insert(char* key, hack_addr addr) {
+    Symbol* item = (Symbol*) malloc(sizeof(Symbol));
+    item->address = addr;
+    item->name = key;
+
+    int hashIndex = hash(key);
+
+
+    while(hashArray[hashIndex] != NULL && hashArray[hashIndex]->name != NULL) {
+
+        ++hashIndex;
+        hashIndex %= SYMBOL_TABLE_SIZE;
+   }
+
+   hashArray[hashIndex] = item;
+}
