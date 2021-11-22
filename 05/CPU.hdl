@@ -39,5 +39,78 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    
+    // Control
+    Not(in=zr, out=notzr);
+    Not(in=ng, out=notng);
+    Not(in=instruction[2], out=notj1);
+    Not(in=instruction[1], out=notj2);
+    Not(in=instruction[0], out=notj3);
+    // JLT
+    And(a=notj2, b=notj3, out=notj2notj3);
+    And(a=instruction[2], b=notj2notj3, out=j1notj2notj3);
+    And(a=j1notj2notj3, b=ng, out=jlt);
+    And(a=instruction[15], b=jlt, out=loadjlt);
+    // JEQ
+    And(a=notj1, b=notj3, out=notj1notj3);
+    And(a=zr, b=notj1notj3, out=zrnotj1notj3);
+    And(a=instruction[1], b=zrnotj1notj3, out=jeq);
+    And(a=instruction[15], b=jeq, out=loadjeq);
+    // JGT
+    And(a=notj1, b=notj2, out=notj1notj2);
+    And(a=notzr, b=notng, out=notzrnotng);
+    And(a=notj1notj2, b=notzrnotng, out=notj1notj2notzrnotng);
+    And(a=instruction[0], b=notj1notj2notzrnotng, out=jgt);
+    And(a=instruction[15], b=jgt, out=loadjgt);
+    // JNE
+    And(a=notj2, b=notzr, out=notj2notzr);
+    And(a=instruction[2], b=instruction[0], out=j1j3);
+    And(a=notj2notzr, b=j1j3, out=jne);
+    And(a=instruction[15], b=jne, out=loadjne);
+    // JLE
+    And(a=instruction[2], b=instruction[1], out=j1j2);
+    And(a=j1j2, b=notj3, out=j1j2notj3);
+    Xor(a=zr, b=ng, out=xorzrng);
+    And(a=j1j2notj3, b=xorzrng, out=jle);
+    And(a=instruction[15], b=jle, out=loadjle);
+    // JMP
+    And(a=j1j2, b=instruction[0], out=jmp);
+    And(a=instruction[15], b=jmp, out=loadjmp);
+    // JGE
+    And(a=notj1, b=notng, out=notj1notng);
+    And(a=instruction[1], b=instruction[0], out=j2j3);
+    And(a=notj1notng, b=j2j3, out=jge);
+    And(a=instruction[15], b=jge, out=loadjge);
+
+    // or all the jump conditions
+    Or8Way(in[0]=loadjlt, in[1]=loadjeq, in[2]=loadjgt, in[3]=loadjne, in[4]=loadjle, in[5]=loadjmp, in[6]=loadjge, out=loadpc);
+    Not(in=loadpc, out=notloadpc);
+
+    // first Mux16
+    Mux16(a=instruction, b=aluo, sel=instruction[15], out=outmux0);
+
+    // A register
+    Not(in=instruction[15], out=ainst);
+    Or(a=ainst, b=instruction[5], out=loada);
+    ARegister(in=outmux0, load=loada, out=outareg, out=outaregtapped, out[0..14]=addressM);
+
+    // D register
+    And(a=instruction[15], b=instruction[14], out=j15j14);
+    And(a=j15j14, b=instruction[13], out=j15j14j13);
+    And(a=j15j14j13, b=instruction[4], out=loadd);
+    DRegister(in=aluo, load=loadd, out=outdreg);
+
+    // second Mux16
+    Mux16(a=outareg, b=inM, sel=instruction[12], out=outmux1);
+
+    // PC
+    //And(a=notj1notj2, b=notj3, out=notj1notj2notj3);
+    //Or(a=notloadpc, b=notj1notj2notj3, out=nojump);
+    PC(in=outaregtapped, load=loadpc, inc=true, reset=reset, out[0..14]=pc);
+
+    // writeM
+    And(a=instruction[15], b=instruction[3], out=writeM);
+
+    // ALU
+    ALU(x=outdreg, y=outmux1, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=outM, out=aluo, zr=zr, ng=ng);
 }
