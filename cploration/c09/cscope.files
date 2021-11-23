@@ -1,0 +1,7 @@
+./error.h
+./symtable.c
+./parser.h
+./symtable.h
+./main.c
+./error.c
+./parser.c
