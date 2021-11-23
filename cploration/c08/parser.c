@@ -1,9 +1,18 @@
 #include "parser.h"
+#include "error.h"
+#include "symtable.h"
+
 // exercice 4
 void parse(FILE* file) {
     char line[MAX_LINE_LENGTH] = {0};
+    int line_num = 0;
+    int instr_num = 0;
 
     while(fgets(line, sizeof(line), file)) {
+        line_num++;
+        if(instr_num > MAX_INSTRUCTIONS){
+          exit_program(EXIT_TOO_MANY_INSTRUCTIONS, MAX_INSTRUCTIONS + 1);
+        }
         strip(line);
 
         if(!*line)
@@ -15,8 +24,16 @@ void parse(FILE* file) {
 
         else if (is_label(line)){
           inst_type= 'L';
-          char new_label[sizeof(line)];
+          char new_label[sizeof(line)] = {0};
           extract_label(line,new_label);
+          if(isalpha(line[0])){
+            exit_program(EXIT_INVALID_LABEL, line_num, line);
+          }
+          if(symtable_find(new_label) == NULL) {
+            exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
+          }
+          symtable_insert(new_label, instr_num);
+          continue;
           printf("%c  %s\n",inst_type, new_label );
           continue;
         }
@@ -24,6 +41,8 @@ void parse(FILE* file) {
           inst_type = 'C';
         }
         printf("%c  %s\n",inst_type ,   line);
+        instr_num++;
+
     }
 }
 

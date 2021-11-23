@@ -1,0 +1,1082 @@
+cscope 15 $HOME/Documents/CS271Fall/nand2tetris/projects/cploration/c08               0000005457
+	@error.c
+
+1 
+	~"îr‹.h
+"
+
+2 
+	~<°dio.h
+>
+
+3 
+	~<°dlib.h
+>
+
+6 c⁄° *
+	gîr‹_mesßges
+[] =
+
+8 [
+EXIT_INCORRECT_ARGUMENTS
+] = "Usage: %s [filename]",
+
+9 [
+EXIT_CANNOT_OPEN_FILE
+] = "Cannot open file: %s [filename]",
+
+10 [
+EXIT_TOO_MANY_INSTRUCTIONS
+] = "File contains moreÅhanÅhe maximum of %u instructions.",
+
+11 [
+EXIT_INVALID_LABEL
+] = "Line %u: %s: invalidÜabelÇame."
+
+14 
+	$exô_¥ogøm
+(
+exôcode
+ 
+code
+, ...)
+
+16 
+va_li°
+ 
+¨gumíts
+;
+
+17 
+	`va_°¨t
+(
+¨gumíts
+, 
+code
+);
+
+19 
+	`¥ötf
+("ERROR: ");
+
+20 
+	`vÂrötf
+(
+°dout
+, 
+îr‹_mesßges
+[
+code
+], 
+¨gumíts
+);
+
+21 
+	`¥ötf
+("\n");
+
+23 
+	`va_íd
+(
+¨gumíts
+);
+
+24 
+	`exô
+(
+code
+);
+
+25 
+	}
+}
+
+	@error.h
+
+1 #i‚de‡
+__ERROR_H__
+
+
+2 
+	#__ERROR_H__
+
+
+	)
+
+3 
+	~<°d¨g.h
+>
+
+13 
+	eexôcode
+ {
+
+14 
+	mEXIT_INCORRECT_ARGUMENTS
+ = 1,
+
+15 
+	mEXIT_CANNOT_OPEN_FILE
+ = 2,
+
+16 
+	mEXIT_TOO_MANY_INSTRUCTIONS
+ = 3,
+
+17 
+	mEXIT_INVALID_LABEL
+ = 4,
+
+20 
+exô_¥ogøm
+(
+exôcode
+ 
+code
+, ...);
+
+	@main.c
+
+1 
+	~"∑r£r.h
+"
+
+2 
+	~"îr‹.h
+"
+
+4 
+	$maö
+(
+¨gc
+, * 
+¨gv
+[]) {
+
+6 i‡(
+¨gc
+ != 2) {
+
+8 
+	`exô_¥ogøm
+(
+EXIT_INCORRECT_ARGUMENTS
+, 
+¨gv
+[0]);
+
+11 
+FILE
+* 
+fö
+ = 
+	`f›í
+(
+¨gv
+[1], "r");
+
+13 i‡(
+fö
+ =
+NULL
+) {
+
+14 
+	`exô_¥ogøm
+(
+EXIT_CANNOT_OPEN_FILE
+, 
+¨gv
+[1]);
+
+18 
+	`∑r£
+(
+fö
+);
+
+20 
+	`f˛o£
+(
+fö
+);
+
+23 
+	}
+}
+
+	@parser.c
+
+1 
+	~"∑r£r.h
+"
+
+2 
+	~"îr‹.h
+"
+
+5 
+	$∑r£
+(
+FILE
+* 
+fûe
+) {
+
+6 
+löe
+[
+MAX_LINE_LENGTH
+] = {0};
+
+7 
+löe_num
+ = 0;
+
+8 
+ö°r_num
+ = 0;
+
+10 
+	`fgës
+(
+löe
+, ÷öe), 
+fûe
+)) {
+
+11 
+löe_num
+++;
+
+12 if(
+ö°r_num
+ > 
+MAX_INSTRUCTIONS
+){
+
+13 
+	`exô_¥ogøm
+(
+EXIT_TOO_MANY_INSTRUCTIONS
+, 
+MAX_INSTRUCTIONS
+ + 1);
+
+15 
+	`°rù
+(
+löe
+);
+
+17 if(!*
+löe
+)
+
+19 
+ö°_ty≥
+ = {0};
+
+20 i‡(
+	`is_Aty≥
+(
+löe
+)) {
+
+21 
+ö°_ty≥
+ = 'A';
+
+24 i‡(
+	`is_œbñ
+(
+löe
+)){
+
+25 
+ö°_ty≥
+= 'L';
+
+26 
+√w_œbñ
+[(
+löe
+)];
+
+27 
+	`exåa˘_œbñ
+(
+löe
+,
+√w_œbñ
+);
+
+28 if(
+	`iß∂pha
+(
+löe
+[0])){
+
+29 
+	`exô_¥ogøm
+(
+EXIT_INVALID_LABEL
+, 
+löe_num
+, 
+löe
+);
+
+31 
+	`¥ötf
+("%¯ %s\n",
+ö°_ty≥
+, 
+√w_œbñ
+ );
+
+34 if(
+	`is_Cty≥
+(
+löe
+)){
+
+35 
+ö°_ty≥
+ = 'C';
+
+37 
+	`¥ötf
+("%¯ %s\n",
+ö°_ty≥
+ , 
+löe
+);
+
+38 
+ö°r_num
+++;
+
+41 
+	}
+}
+
+44 * 
+	$°rù
+(* 
+s
+) {
+
+45 
+s_√w
+[
+MAX_LINE_LENGTH
+ + 1] = {0};
+
+46 
+i
+ = 0;
+
+48 * 
+s2
+ = 
+s
+; *s2; s2++) {
+
+50 if(*
+s2
+ == '/' && *(s2+1) == '/') {
+
+54 if(!
+	`is•a˚
+(*
+s2
+)) {
+
+55 
+s_√w
+[
+i
+++] = *
+s2
+;
+
+58 
+s_√w
+[
+i
+]= '\0';
+
+59 
+	`°r˝y
+(
+s
+, 
+s_√w
+);
+
+61  
+s
+;
+
+62 
+	}
+}
+
+63 
+boﬁ
+ 
+	$is_Aty≥
+(c⁄° * 
+löe
+) {
+
+64 i‡(*
+löe
+== '@' ){
+
+65  
+åue
+;
+
+68  
+Ál£
+;
+
+70 
+	}
+}
+
+71 
+boﬁ
+ 
+	$is_œbñ
+(c⁄° * 
+löe
+){
+
+72 i‡(
+löe
+[0]='(' &&Üöe[
+	`°æí
+(line)-1]==')')
+
+73  
+åue
+;
+
+75  
+Ál£
+;
+
+76 
+	}
+}
+
+77 
+boﬁ
+ 
+	$is_Cty≥
+(c⁄° * 
+löe
+){
+
+78 i‡(!
+	`is_Aty≥
+(
+löe
+Ë&& !
+	`is_œbñ
+(line))
+
+79  
+åue
+;
+
+81  
+Ál£
+;
+
+82 
+	}
+}
+
+83 * 
+	$exåa˘_œbñ
+(c⁄° * 
+löe
+, * 
+œbñ
+){
+
+84 
+	`°∫˝y
+(
+œbñ
+, 
+löe
++1, 
+	`°æí
+(line)-2);
+
+85  
+œbñ
+;
+
+86 
+	}
+}
+
+	@parser.h
+
+2 #i‚de‡
+__PARSER_H__
+
+
+3 
+	#__PARSER_H__
+
+
+	)
+
+4 
+	~<°dio.h
+>
+
+5 
+	~<°rög.h
+>
+
+6 
+	~<°dlib.h
+>
+
+7 
+	~<˘y≥.h
+>
+
+8 
+	~<°dboﬁ.h
+>
+
+9 
+	~<°döt.h
+>
+
+16 
+	#MAX_LINE_LENGTH
+ 200
+
+	)
+
+17 
+	#MAX_LABEL_LENGTH
+ 
+MAX_LINE_LENGTH
+ -2
+
+	)
+
+18 
+	#MAX_HACK_ADDRESS
+ 
+INT16_MAX
+
+
+	)
+
+19 
+	#MAX_INSTRUCTIONS
+ 
+MAX_HACK_ADDRESS
+
+
+	)
+
+24 * 
+°rù
+(* 
+s
+);
+
+25 
+∑r£
+(
+FILE
+* 
+fûe
+);
+
+26 
+boﬁ
+ 
+is_Aty≥
+(const *);
+
+27 
+boﬁ
+ 
+is_œbñ
+(const *);
+
+28 
+boﬁ
+ 
+is_Cty≥
+(const *);
+
+29 
+öt16_t
+ 
+	thack_addr
+;
+
+30 
+öt16_t
+ 
+	t›code
+;
+
+31 *
+exåa˘_œbñ
+(c⁄° *
+löe
+, * 
+œbñ
+);
+
+32 
+	eö°_ty≥
+ {
+
+33 
+	mövÆid
+ = -1,
+
+34 
+	mAty≥
+,
+
+35 
+	mCty≥
+,
+
+38 
+	sc_ö°ru˘i⁄
+ {
+
+39 
+›code
+ 
+	ma
+: 1;
+
+40 
+›code
+ 
+	mcomp
+: 6;
+
+41 
+›code
+ 
+	mde°
+:3;
+
+42 
+›code
+ 
+	mjump
+: 3;
+
+45 }
+	tc_ö°ru˘i⁄
+;
+
+48 
+	sa_ö°ru˘i⁄
+ {
+
+49 
+	uhack_addr
+ {
+
+50 
+hack_addr
+ 
+	maddªss
+;
+
+51 * 
+	mœbñ
+;
+
+52 }
+	mhack_addr
+;
+
+53 
+boﬁ
+ 
+	mis_addr
+;
+
+54 }
+	ta_ö°ru˘i⁄
+;
+
+57 
+	sö°ru˘i⁄
+ {
+
+58 
+	uA‹C
+ {
+
+59 
+ö°_ty≥
+ 
+	mAty≥
+;
+
+60 
+ö°_ty≥
+ 
+	mCty≥
+;
+
+61 }
+	mA‹C
+;
+
+62 }
+	tö°ru˘i⁄
+;
+
+	@symtable.c
+
+1 
+	~"symèbÀ.h
+"
+
+4 
+	$hash
+(* 
+°r
+) {
+
+5 
+hash
+ = 5381;
+
+6 
+c
+;
+
+8 (
+c
+ = *
+°r
+++))
+
+9 
+hash
+ = ((hash << 5Ë+ hashË+ 
+c
+;
+
+11  
+hash
+ % 
+SYMBOL_TABLE_SIZE
+;
+
+12 
+	}
+}
+
+14 
+	$symèbÀ_ö£π
+(* 
+key
+, 
+hack_addr
+ 
+addr
+) {
+
+15 
+Symbﬁ
+* 
+ôem
+ = (Symbﬁ*Ë
+	`mÆloc
+((Symbol));
+
+16 
+ôem
+->
+addªss
+ = 
+addr
+;
+
+17 
+ôem
+->
+«me
+ = 
+key
+;
+
+19 
+hashIndex
+ = 
+	`hash
+(
+key
+);
+
+22 
+hashAºay
+[
+hashIndex
+] !
+NULL
+ && hashAºay[hashIndex]->
+«me
+ != NULL) {
+
+24 ++
+hashIndex
+;
+
+25 
+hashIndex
+ %
+SYMBOL_TABLE_SIZE
+;
+
+28 
+hashAºay
+[
+hashIndex
+] = 
+ôem
+;
+
+29 
+	}
+}
+
+31 
+Symbﬁ
+* 
+	$symèbÀ_föd
+(* 
+key
+) {
+
+32 
+hashIndex
+ = 
+	`hash
+(
+key
+);
+
+34 
+hashAºay
+[
+hashIndex
+] !
+NULL
+) {
+
+35 if(
+hashAºay
+[
+hashIndex
+]->
+«me
+ =
+key
+)
+
+36  
+hashAºay
+[
+hashIndex
+];
+
+38 ++
+hashIndex
+;
+
+40 
+hashIndex
+ %
+SYMBOL_TABLE_SIZE
+;
+
+43  
+NULL
+;
+
+44 
+	}
+}
+
+47 
+	$symèbÀ_di•œy_èbÀ
+() {
+
+48 
+i
+ = 0; i < 
+SYMBOL_TABLE_SIZE
+; i++) {
+
+49 if(
+hashAºay
+[
+i
+] !
+NULL
+)
+
+50 
+	`¥ötf
+(" (%s,%d)", 
+hashAºay
+[
+i
+]->
+«me
+, hashAºay[i]->
+addªss
+);
+
+52 
+	`¥ötf
+(" ~~ ");
+
+54 
+	`¥ötf
+("\n");
+
+55 
+	}
+}
+
+	@symtable.h
+
+1 #i‚de‡
+__SYMTABLE_H__
+
+
+2 
+	#__SYMTABLE_H__
+
+
+	)
+
+3 
+	~<°dio.h
+>
+
+4 
+	~<°rög.h
+>
+
+5 
+	~<°dlib.h
+>
+
+6 
+	~<˘y≥.h
+>
+
+7 
+	~<°dboﬁ.h
+>
+
+8 
+	~<°döt.h
+>
+
+15 
+	#SYMBOL_TABLE_SIZE
+ 100
+
+	)
+
+17 
+öt16_t
+ 
+	thack_addr
+;
+
+20 
+hack_addr
+ 
+	maddªss
+;
+
+21 * 
+	m«me
+;
+
+22 } 
+	tSymbﬁ
+;
+
+24 
+Symbﬁ
+* 
+	ghashAºay
+[
+SYMBOL_TABLE_SIZE
+];
+
+25 
+hash
+(* 
+°r
+);
+
+26 
+Symbﬁ
+* 
+symèbÀ_föd
+(* 
+key
+);
+
+27 
+symèbÀ_ö£π
+(* 
+key
+, 
+hack_addr
+ 
+addr
+);
+
+28 
+symèbÀ_di•œy_èbÀ
+();
+
+	@
+1
+.
+0
+7
+63
+error.c
+error.h
+main.c
+parser.c
+parser.h
+symtable.c
+symtable.h
