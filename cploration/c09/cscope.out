@@ -1,4 +1,4 @@
-cscope 15 $HOME/Documents/CS271Fall/nand2tetris/projects/cploration/c08               0000005457
+cscope 15 $HOME/Documents/CS271Fall/nand2tetris/projects/cploration/c09               0000008299
 	@error.c
 
 1 
@@ -31,9 +31,17 @@ EXIT_TOO_MANY_INSTRUCTIONS
 
 11 [
 EXIT_INVALID_LABEL
-] = "Line %u: %s: invalidÜabelÇame."
+] = "Line %u: %s: invalidÜabelÇame.",
 
-14 
+12 [
+EXIT_SYMBOL_ALREADY_EXISTS
+] = "Line %u: %s : Symbol isálready defined",
+
+13 [
+EXIT_INVALID_A_INSTR
+] = "Line %u: %s : Invalid A-instruction operand",
+
+16 
 	$exô_¥ogøm
 (
 exôcode
@@ -41,13 +49,13 @@ exôcode
 code
 , ...)
 
-16 
+18 
 va_li°
  
 ¨gumíts
 ;
 
-17 
+19 
 	`va_°¨t
 (
 ¨gumíts
@@ -55,11 +63,11 @@ va_li°
 code
 );
 
-19 
+21 
 	`¥ötf
 ("ERROR: ");
 
-20 
+22 
 	`vÂrötf
 (
 °dout
@@ -71,23 +79,23 @@ code
 ¨gumíts
 );
 
-21 
+23 
 	`¥ötf
 ("\n");
 
-23 
+25 
 	`va_íd
 (
 ¨gumíts
 );
 
-24 
+26 
 	`exô
 (
 code
 );
 
-25 
+27 
 	}
 }
 
@@ -127,13 +135,253 @@ __ERROR_H__
 	mEXIT_INVALID_LABEL
  = 4,
 
-20 
+18 
+	mEXIT_SYMBOL_ALREADY_EXISTS
+ = 5,
+
+19 
+	mEXIT_INVALID_A_INSTR
+ = 6,
+
+22 
 exô_¥ogøm
 (
 exôcode
  
 code
 , ...);
+
+	@hack.h
+
+1 #i‚de‡
+__HACK_H__
+
+
+2 
+	#__HACK_H__
+
+
+	)
+
+3 
+	#NUM_PREDEFINED_SYMBOLS
+ 23
+
+	)
+
+6 
+	esymbﬁ_id
+ {
+
+7 
+	mSYM_R0
+ = 0,
+
+8 
+	mSYM_R1
+ = 1,
+
+9 
+	mSYM_R2
+ = 2,
+
+10 
+	mSYM_R3
+ = 3,
+
+11 
+	mSYM_R4
+ = 4,
+
+12 
+	mSYM_R5
+ = 5,
+
+13 
+	mSYM_R6
+ = 6,
+
+14 
+	mSYM_R7
+ = 7,
+
+15 
+	mSYM_R8
+ = 8,
+
+16 
+	mSYM_R9
+ = 9,
+
+17 
+	mSYM_R10
+ = 10,
+
+18 
+	mSYM_R11
+ = 11,
+
+19 
+	mSYM_R12
+ = 12,
+
+20 
+	mSYM_R13
+ = 13,
+
+21 
+	mSYM_R14
+ = 14,
+
+22 
+	mSYM_R15
+ = 15,
+
+23 
+	mSYM_SCREEN
+ = 16384,
+
+24 
+	mSYM_KBD
+ = 24576,
+
+25 
+	mSYM_SP
+ = 0,
+
+26 
+	mSYM_LCL
+ = 1,
+
+27 
+	mSYM_ARG
+ = 2,
+
+28 
+	mSYM_THIS
+ = 3,
+
+29 
+	mSYM_THAT
+ = 4,
+
+33 
+	s¥edeföed_symbﬁ
+ {
+
+34 
+	m«me
+[10];
+
+35 
+öt16_t
+ 
+	maddªss
+;
+
+36 } 
+	t¥edeföed_symbﬁ
+;
+
+39 c⁄° 
+¥edeföed_symbﬁ
+ 
+	g¥edeföed_symbﬁs
+[
+NUM_PREDEFINED_SYMBOLS
+] = {
+
+40 {"R0", 
+SYM_R0
+},
+
+41 {"R1", 
+SYM_R1
+},
+
+42 {"R2", 
+SYM_R2
+},
+
+43 {"R3", 
+SYM_R3
+},
+
+44 {"R4", 
+SYM_R4
+},
+
+45 {"R5", 
+SYM_R5
+},
+
+46 {"R6", 
+SYM_R6
+},
+
+47 {"R7", 
+SYM_R7
+},
+
+48 {"R8", 
+SYM_R8
+},
+
+49 {"R9", 
+SYM_R9
+},
+
+50 {"R10", 
+SYM_R10
+},
+
+51 {"R11", 
+SYM_R11
+},
+
+52 {"R12", 
+SYM_R12
+},
+
+53 {"R13", 
+SYM_R13
+},
+
+54 {"R14", 
+SYM_R14
+},
+
+55 {"R15", 
+SYM_R15
+},
+
+56 {"SCREEN", 
+SYM_SCREEN
+},
+
+57 {"KBD", 
+SYM_KBD
+},
+
+58 {"SP", 
+SYM_SP
+},
+
+59 {"LCL", 
+SYM_LCL
+},
+
+60 {"ARG", 
+SYM_ARG
+},
+
+61 {"THIS", 
+SYM_THIS
+},
+
+62 {"THAT", 
+SYM_THAT
+},
 
 	@main.c
 
@@ -189,19 +437,19 @@ EXIT_CANNOT_OPEN_FILE
 ¨gv
 [1]);
 
-18 
+19 
 	`∑r£
 (
 fö
 );
 
-20 
+21 
 	`f˛o£
 (
 fö
 );
 
-23 
+24 
 	}
 }
 
@@ -215,7 +463,11 @@ fö
 	~"îr‹.h
 "
 
-5 
+3 
+	~"symèbÀ.h
+"
+
+6 
 	$∑r£
 (
 FILE
@@ -223,21 +475,35 @@ FILE
 fûe
 ) {
 
-6 
+7 
 löe
 [
 MAX_LINE_LENGTH
 ] = {0};
 
-7 
+8 
 löe_num
  = 0;
 
-8 
+9 
 ö°r_num
  = 0;
 
-10 
+10 
+a_ö°ru˘i⁄
+ 
+ö°r
+;
+
+12 
+	`add_¥edeföed_symbﬁs
+();
+
+13 
+	`symèbÀ_di•œy_èbÀ
+();
+
+15 
 	`fgës
 (
 löe
@@ -245,17 +511,17 @@ löe
 fûe
 )) {
 
-11 
+16 
 löe_num
 ++;
 
-12 if(
+17 if(
 ö°r_num
  > 
 MAX_INSTRUCTIONS
 ){
 
-13 
+18 
 	`exô_¥ogøm
 (
 EXIT_TOO_MANY_INSTRUCTIONS
@@ -263,47 +529,77 @@ EXIT_TOO_MANY_INSTRUCTIONS
 MAX_INSTRUCTIONS
  + 1);
 
-15 
+20 
 	`°rù
 (
 löe
 );
 
-17 if(!*
+22 if(!*
 löe
 )
 
-19 
+24 
 ö°_ty≥
  = {0};
 
-20 i‡(
+25 i‡(
 	`is_Aty≥
 (
 löe
 )) {
 
-21 
+26 i‡(!
+	`∑r£_A_ö°ru˘i⁄
+(
+löe
+, &
+ö°r
+.
+A‹C
+.
+Aty≥
+)){
+
+27 
+	`exô_¥ogøm
+(
+EXIT_INVALID_A_INSTR
+, 
+löe_num
+, 
+löe
+);
+
+29 
+ö°r
+.
+ôy≥
+ = 
+INST_A
+;
+
+30 
 ö°_ty≥
  = 'A';
 
-24 i‡(
+32 i‡(
 	`is_œbñ
 (
 löe
 )){
 
-25 
+33 
 ö°_ty≥
 = 'L';
 
-26 
+34 
 √w_œbñ
 [(
 löe
-)];
+)] = {0};
 
-27 
+35 
 	`exåa˘_œbñ
 (
 löe
@@ -311,13 +607,13 @@ löe
 √w_œbñ
 );
 
-28 if(
-	`iß∂pha
+36 if(
+	`ißÕha
 (
 löe
 [0])){
 
-29 
+37 
 	`exô_¥ogøm
 (
 EXIT_INVALID_LABEL
@@ -327,7 +623,33 @@ löe_num
 löe
 );
 
-31 
+39 if(
+	`symèbÀ_föd
+(
+√w_œbñ
+Ë=
+NULL
+) {
+
+40 
+	`exô_¥ogøm
+(
+EXIT_SYMBOL_ALREADY_EXISTS
+, 
+löe_num
+, 
+löe
+);
+
+42 
+	`symèbÀ_ö£π
+(
+√w_œbñ
+, 
+ö°r_num
+);
+
+44 
 	`¥ötf
 ("%¯ %s\n",
 ö°_ty≥
@@ -335,17 +657,17 @@ löe
 √w_œbñ
  );
 
-34 if(
+47 if(
 	`is_Cty≥
 (
 löe
 )){
 
-35 
+48 
 ö°_ty≥
  = 'C';
 
-37 
+50 
 	`¥ötf
 ("%¯ %s\n",
 ö°_ty≥
@@ -353,47 +675,47 @@ löe
 löe
 );
 
-38 
+51 
 ö°r_num
 ++;
 
-41 
+54 
 	}
 }
 
-44 * 
+57 * 
 	$°rù
 (* 
 s
 ) {
 
-45 
+58 
 s_√w
 [
 MAX_LINE_LENGTH
  + 1] = {0};
 
-46 
+59 
 i
  = 0;
 
-48 * 
+61 * 
 s2
  = 
 s
 ; *s2; s2++) {
 
-50 if(*
+63 if(*
 s2
  == '/' && *(s2+1) == '/') {
 
-54 if(!
+67 if(!
 	`is•a˚
 (*
 s2
 )) {
 
-55 
+68 
 s_√w
 [
 i
@@ -401,13 +723,13 @@ i
 s2
 ;
 
-58 
+71 
 s_√w
 [
 i
 ]= '\0';
 
-59 
+72 
 	`°r˝y
 (
 s
@@ -415,15 +737,15 @@ s
 s_√w
 );
 
-61  
+74  
 s
 ;
 
-62 
+75 
 	}
 }
 
-63 
+76 
 boﬁ
  
 	$is_Aty≥
@@ -431,65 +753,11 @@ boﬁ
 löe
 ) {
 
-64 i‡(*
+77 i‡(*
 löe
 == '@' ){
 
-65  
-åue
-;
-
-68  
-Ál£
-;
-
-70 
-	}
-}
-
-71 
-boﬁ
- 
-	$is_œbñ
-(c⁄° * 
-löe
-){
-
-72 i‡(
-löe
-[0]='(' &&Üöe[
-	`°æí
-(line)-1]==')')
-
-73  
-åue
-;
-
-75  
-Ál£
-;
-
-76 
-	}
-}
-
-77 
-boﬁ
- 
-	$is_Cty≥
-(c⁄° * 
-löe
-){
-
-78 i‡(!
-	`is_Aty≥
-(
-löe
-Ë&& !
-	`is_œbñ
-(line))
-
-79  
+78  
 åue
 ;
 
@@ -497,11 +765,65 @@ löe
 Ál£
 ;
 
-82 
+83 
 	}
 }
 
-83 * 
+84 
+boﬁ
+ 
+	$is_œbñ
+(c⁄° * 
+löe
+){
+
+85 i‡(
+löe
+[0]='(' &&Üöe[
+	`°æí
+(line)-1]==')')
+
+86  
+åue
+;
+
+88  
+Ál£
+;
+
+89 
+	}
+}
+
+90 
+boﬁ
+ 
+	$is_Cty≥
+(c⁄° * 
+löe
+){
+
+91 i‡(!
+	`is_Aty≥
+(
+löe
+Ë&& !
+	`is_œbñ
+(line))
+
+92  
+åue
+;
+
+94  
+Ál£
+;
+
+95 
+	}
+}
+
+96 * 
 	$exåa˘_œbñ
 (c⁄° * 
 löe
@@ -509,7 +831,7 @@ löe
 œbñ
 ){
 
-84 
+97 
 	`°∫˝y
 (
 œbñ
@@ -519,21 +841,177 @@ löe
 	`°æí
 (line)-2);
 
-85  
+98  
 œbñ
 ;
 
-86 
+99 
+	}
+}
+
+102 
+	$add_¥edeföed_symbﬁs
+(){
+
+103 
+i
+ = 0; i < 
+NUM_PREDEFINED_SYMBOLS
+; i++) {
+
+104 
+¥edeföed_symbﬁ
+ 
+myv¨
+ = 
+¥edeföed_symbﬁs
+[
+i
+];
+
+105 
+	`symèbÀ_ö£π
+(
+myv¨
+.
+«me
+, myv¨.
+addªss
+);
+
+107 
+	}
+}
+
+110 
+boﬁ
+ 
+	$∑r£_A_ö°ru˘i⁄
+(c⁄° *
+löe
+, 
+a_ö°ru˘i⁄
+ *
+ö°r
+){
+
+111 * 
+s
+ = 
+	`mÆloc
+(
+	`°æí
+(
+löe
+));
+
+112 
+	`°r˝y
+(
+s
+, 
+löe
++1);
+
+113 * 
+s_íd
+ = 
+NULL
+;
+
+114 
+ªsu…
+ = 
+	`°πﬁ
+(
+s
+, &
+s_íd
+, 10);
+
+115 i‡(
+	`°rcmp
+(
+s
+, 
+s_íd
+) == 0){
+
+116 
+ö°r
+->
+hack_addr
+.
+œbñ
+ = 
+	`mÆloc
+(
+	`°æí
+(
+löe
+));
+
+117 
+	`°r˝y
+(
+ö°r
+->
+hack_addr
+.
+œbñ
+, 
+s
+);
+
+118 
+ö°r
+->
+is_addr
+ = 
+Ál£
+;
+
+120 i‡(*
+s_íd
+ != 0) {
+
+121  
+Ál£
+;
+
+124 
+ö°r
+->
+hack_addr
+.
+addªss
+ = 
+ªsu…
+;
+
+125 
+ö°r
+->
+is_addr
+ = 
+åue
+;
+
+128  
+åue
+;
+
+129 
 	}
 }
 
 	@parser.h
 
-2 #i‚de‡
+1 #i‚de‡
 __PARSER_H__
 
 
-3 
+2 
 	#__PARSER_H__
 
 
@@ -563,13 +1041,17 @@ __PARSER_H__
 	~<°döt.h
 >
 
-16 
+10 
+	~"hack.h
+"
+
+13 
 	#MAX_LINE_LENGTH
  200
 
 	)
 
-17 
+14 
 	#MAX_LABEL_LENGTH
  
 MAX_LINE_LENGTH
@@ -577,7 +1059,7 @@ MAX_LINE_LENGTH
 
 	)
 
-18 
+15 
 	#MAX_HACK_ADDRESS
  
 INT16_MAX
@@ -585,7 +1067,7 @@ INT16_MAX
 
 	)
 
-19 
+16 
 	#MAX_INSTRUCTIONS
  
 MAX_HACK_ADDRESS
@@ -593,13 +1075,17 @@ MAX_HACK_ADDRESS
 
 	)
 
-24 * 
+18 
+add_¥edeföed_symbﬁs
+();
+
+19 * 
 °rù
 (* 
 s
 );
 
-25 
+20 
 ∑r£
 (
 FILE
@@ -607,37 +1093,37 @@ FILE
 fûe
 );
 
-26 
+21 
 boﬁ
  
 is_Aty≥
 (const *);
 
-27 
+22 
 boﬁ
  
 is_œbñ
 (const *);
 
-28 
+23 
 boﬁ
  
 is_Cty≥
 (const *);
 
-29 
+24 
 öt16_t
  
 	thack_addr
 ;
 
-30 
+25 
 öt16_t
  
 	t›code
 ;
 
-31 *
+26 *
 exåa˘_œbñ
 (c⁄° *
 löe
@@ -645,113 +1131,125 @@ löe
 œbñ
 );
 
-32 
+28 
 	eö°_ty≥
  {
 
-33 
+29 
 	mövÆid
  = -1,
 
-34 
+30 
 	mAty≥
 ,
 
-35 
+31 
 	mCty≥
 ,
 
-38 
+35 
 	sc_ö°ru˘i⁄
  {
 
-39 
+36 
 ›code
  
 	ma
 : 1;
 
-40 
+37 
 ›code
  
 	mcomp
 : 6;
 
-41 
+38 
 ›code
  
 	mde°
 :3;
 
-42 
+39 
 ›code
  
 	mjump
 : 3;
 
-45 }
+40 } 
 	tc_ö°ru˘i⁄
 ;
 
-48 
+42 
 	sa_ö°ru˘i⁄
  {
 
-49 
+43 
 	uhack_addr
  {
 
-50 
+44 
 hack_addr
  
 	maddªss
 ;
 
-51 * 
+45 * 
 	mœbñ
 ;
 
-52 }
+46 } 
 	mhack_addr
 ;
 
-53 
+47 
 boﬁ
  
 	mis_addr
 ;
 
-54 }
+48 } 
 	ta_ö°ru˘i⁄
 ;
 
-57 
+50 
 	sö°ru˘i⁄
  {
 
-58 
+51 
 	uA‹C
  {
 
-59 
+52 
 ö°_ty≥
  
 	mAty≥
 ;
 
-60 
+53 
 ö°_ty≥
  
 	mCty≥
 ;
 
-61 }
+54 } 
 	mA‹C
 ;
 
-62 }
+55 } 
 	tö°ru˘i⁄
 ;
+
+57 
+boﬁ
+ 
+∑r£_A_ö°ru˘i⁄
+(c⁄° *
+löe
+, 
+a_ö°ru˘i⁄
+ *
+ö°r
+);
 
 	@symtable.c
 
@@ -805,7 +1303,7 @@ hack_addr
 addr
 ) {
 
-15 
+16 
 Symbﬁ
 * 
 ôem
@@ -813,7 +1311,7 @@ Symbﬁ
 	`mÆloc
 ((Symbol));
 
-16 
+17 
 ôem
 ->
 addªss
@@ -821,15 +1319,29 @@ addªss
 addr
 ;
 
-17 
+18 
 ôem
 ->
 «me
- = 
+ = (*)
+	`mÆloc
+(
+	`°æí
+(
 key
-;
+) + 1);
 
-19 
+19 
+	`°r˝y
+(
+ôem
+->
+«me
+, 
+key
+);
+
+23 
 hashIndex
  = 
 	`hash
@@ -837,7 +1349,7 @@ hashIndex
 key
 );
 
-22 
+26 
 hashAºay
 [
 hashIndex
@@ -847,17 +1359,17 @@ NULL
 «me
  != NULL) {
 
-24 ++
+28 ++
 hashIndex
 ;
 
-25 
+29 
 hashIndex
  %
 SYMBOL_TABLE_SIZE
 ;
 
-28 
+32 
 hashAºay
 [
 hashIndex
@@ -865,11 +1377,11 @@ hashIndex
 ôem
 ;
 
-29 
+33 
 	}
 }
 
-31 
+35 
 Symbﬁ
 * 
 	$symèbÀ_föd
@@ -877,7 +1389,7 @@ Symbﬁ
 key
 ) {
 
-32 
+36 
 hashIndex
  = 
 	`hash
@@ -885,7 +1397,7 @@ hashIndex
 key
 );
 
-34 
+38 
 hashAºay
 [
 hashIndex
@@ -893,7 +1405,7 @@ hashIndex
 NULL
 ) {
 
-35 if(
+39 if(
 hashAºay
 [
 hashIndex
@@ -903,41 +1415,41 @@ hashIndex
 key
 )
 
-36  
+40  
 hashAºay
 [
 hashIndex
 ];
 
-38 ++
+42 ++
 hashIndex
 ;
 
-40 
+44 
 hashIndex
  %
 SYMBOL_TABLE_SIZE
 ;
 
-43  
+47  
 NULL
 ;
 
-44 
+48 
 	}
 }
 
-47 
+51 
 	$symèbÀ_di•œy_èbÀ
 () {
 
-48 
+52 
 i
  = 0; i < 
 SYMBOL_TABLE_SIZE
 ; i++) {
 
-49 if(
+53 if(
 hashAºay
 [
 i
@@ -945,7 +1457,7 @@ i
 NULL
 )
 
-50 
+54 
 	`¥ötf
 (" (%s,%d)", 
 hashAºay
@@ -957,15 +1469,15 @@ i
 addªss
 );
 
-52 
+56 
 	`¥ötf
 (" ~~ ");
 
-54 
+58 
 	`¥ötf
 ("\n");
 
-55 
+59 
 	}
 }
 
@@ -1071,10 +1583,11 @@ symèbÀ_di•œy_èbÀ
 1
 .
 0
-7
-63
+8
+70
 error.c
 error.h
+hack.h
 main.c
 parser.c
 parser.h

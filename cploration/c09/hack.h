@@ -1,6 +1,8 @@
 #ifndef __HACK_H__
 #define __HACK_H__
 #define NUM_PREDEFINED_SYMBOLS 23
+
+// Exercice 1: Enum for predefined symbols
 enum symbol_id {
   SYM_R0 = 0,
   SYM_R1 = 1,
@@ -25,14 +27,15 @@ enum symbol_id {
   SYM_ARG = 2,
   SYM_THIS = 3,
   SYM_THAT = 4,
+};
 
-}
+// Exercice 2: Struct for a predefined symbol
 typedef struct predefined_symbol {
-  char * name = 10;
+  char name[10];
   int16_t address;
+} predefined_symbol;
 
-}predefined_symbol;
-
+// Exercice 3: Array for predefined symbols
 static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
     {"R0", SYM_R0},
     {"R1", SYM_R1},
@@ -57,12 +60,5 @@ static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
     {"ARG", SYM_ARG},
     {"THIS", SYM_THIS},
     {"THAT", SYM_THAT},
-
-
 };
-
-
-
-
-
 #endif

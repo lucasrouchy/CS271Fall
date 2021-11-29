@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
       exit_program(EXIT_CANNOT_OPEN_FILE, argv[1]);
 
     }
+
     // call our function parse
     parse(fin);
     // close your file pointer

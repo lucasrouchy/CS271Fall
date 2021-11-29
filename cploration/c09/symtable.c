@@ -12,9 +12,13 @@ int hash(char* str) {
 }
 //Exercice 4
 void symtable_insert(char* key, hack_addr addr) {
+
     Symbol* item = (Symbol*) malloc(sizeof(Symbol));
     item->address = addr;
-    item->name = key;
+    item->name = (char*)malloc(strlen(key) + 1);
+    strcpy(item->name, key);
+
+    
 
     int hashIndex = hash(key);
 

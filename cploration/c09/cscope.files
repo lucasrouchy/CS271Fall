@@ -1,5 +1,6 @@
 ./error.h
 ./symtable.c
+./hack.h
 ./parser.h
 ./symtable.h
 ./main.c
