@@ -36,7 +36,7 @@ void parse(FILE* file) {
           if(isalpha(line[0])){
             exit_program(EXIT_INVALID_LABEL, line_num, line);
           }
-          if(symtable_find(new_label) == NULL) {
+          if(symtable_find(new_label) != NULL) {
             exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
           }
           symtable_insert(new_label, instr_num);
