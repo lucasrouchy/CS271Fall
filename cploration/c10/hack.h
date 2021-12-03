@@ -2,7 +2,7 @@
 #define __HACK_H__
 #define NUM_PREDEFINED_SYMBOLS 23
 
-// Exercice 1: Enum for predefined symbols
+
 enum symbol_id {
   SYM_R0 = 0,
   SYM_R1 = 1,
@@ -29,13 +29,13 @@ enum symbol_id {
   SYM_THAT = 4,
 };
 
-// Exercice 2: Struct for a predefined symbol
+
 typedef struct predefined_symbol {
   char name[10];
   int16_t address;
 } predefined_symbol;
 
-// Exercice 3: Array for predefined symbols
+
 static const predefined_symbol predefined_symbols[NUM_PREDEFINED_SYMBOLS] = {
     {"R0", SYM_R0},
     {"R1", SYM_R1},
@@ -120,6 +120,24 @@ enum comp_id {
 
 };
 //Exercise 4 function
-static inline jump_id str_to_jumpid(const char *s)
+static inline jump_id str_to_jumpid(const char *s){
+  jump_id id = JMP_INVALID;
+  if (s == NULL) {
+    id = JMP_NULL;
+  } else if (s == JGT){
+    id = JMP_JGT;
+  } else if (s == JEQ){
+    id = JMP_JEQ;
+  } else if (s == JLT){
+    id = JMP_JLT;
+  } else if (s == JNE){
+    id = JMP_JNE;
+  } else if (s == JLE){
+    id = JMP_JLE;
+  } else if (s == JMP){
+    id = JMP_JMP;
+  }
+return id;
+}
 
 #endif
