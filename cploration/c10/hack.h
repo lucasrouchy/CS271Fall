@@ -137,7 +137,91 @@ static inline jump_id str_to_jumpid(const char *s){
   } else if (s == JMP){
     id = JMP_JMP;
   }
-return id;
+  return id;
+}
+//Exercise 5 function
+static inline dest_id str_to_destid(const char *s){
+  dest_id id = DEST_INVALID;
+  if (s == NULL){
+    id = DEST_NULL;
+  } else if(s == M){
+    id = DEST_M;
+  } else if(s == D){
+    id = DEST_D;
+  } else if (s == MD){
+    id = DEST_MD;
+  } else if (s == A){
+    id = DEST_A;
+  } else if (s == AM){
+    id = DEST_AM;
+  } else if (s == AD){
+    id = DEST_AD;
+  } else if (s == AMD){
+    id = DEST_AMD;
+  }
+  return id;
+}
+//Exercise 6 function
+static inline comp_id str_to_compid(const char *s, int *a){
+  comp_id id = COMP_INVALID;
+  if (*a=0 && s == 0){
+    id = COMP_0
+  } else if (*a=0 && s == 1){
+    id = COMP_1;
+  } else if (*a=0 && s == -1){
+    id = COMP_-1;
+  } else if (*a=0 && s == D){
+    id = COMP_D;
+  } else if (*a=0 && s == A){
+    id = COMP_A;
+  } else if (*a=0 && s == !D){
+    id = COMP_!D;
+  } else if (*a=0 && s == !A){
+    id = COMP_!A;
+  } else if (*a=0 && s == -D){
+    id = COMP_-D;
+  } else if (*a=0 && s == -A){
+    id = COMP_-A;
+  } else if (*a=0 && s == D+1){
+    id = COMP_D+1;
+  } else if (*a=0 && s == A+1){
+    id = COMP_A+1;
+  } else if (*a=0 && s == D-1){
+    id = COMP_D-1;
+  } else if (*a=0 && s == A-1){
+    id = COMP_A-1;
+  } else if (*a=0 && s == D+A){
+    id = COMP_D+A;
+  } else if (*a=0 && s == D-A){
+    id = COMP_D-A;
+  } else if (*a=0 && s == A-D){
+    id = COMP_A-D;
+  } else if (*a=0 && s == D&A){
+    id = COMP_D&A;
+  } else if (*a=0 && s == D|A){
+    id = COMP_D|A;
+  } else if (*a=1 && s == M){
+    id = COMP_M;
+  } else if (*a=1 && s == !M){
+    id = COMP_!M;
+  } else if (*a=1 && s == -M){
+    id = COMP_-M;
+  } else if (*a=1 && s == M+1){
+    id = COMP_M+1;
+  } else if (*a=1 && s == M-1){
+    id = COMP_M-1;
+  } else if (*a=1 && s == D+M){
+    id = COMP_D+M;
+  } else if (*a=1 && s == D-M){
+    id = COMP_D-M;
+  } else if (*a=1 && s == M-D){
+    id = COMP_M-D;
+  } else if (*a=1 && s == D&M){
+    id = COMP_D&M;
+  } else if (*a=1 && s == D|M){
+    id = COMP_D|M;
+  }
+  return id;
 }
 
 #endif
