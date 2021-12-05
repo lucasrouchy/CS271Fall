@@ -23,7 +23,7 @@ void parse(FILE* file) {
             continue;
         char inst_type = {0};
         if (is_Atype(line)) {
-          // Exercice 6: Calling parse_A_instruction
+
           if (!parse_A_instruction(line, &instr)){
             exit_program(EXIT_INVALID_A_INSTR, line_num, line);
           }
@@ -53,7 +53,7 @@ void parse(FILE* file) {
     }
 }
 
-// exercice 5
+
 char* strip(char* s) {
     char s_new[MAX_LINE_LENGTH + 1] = {0};
     int i = 0;
@@ -98,7 +98,7 @@ char* extract_label(const char* line, char* label){
   return label;
 }
 
-// Exercice 4: Load the predefined symbols
+
 void add_predefined_symbols(void){
   for(int i = 0; i < NUM_PREDEFINED_SYMBOLS; i++) {
     predefined_symbol myvar = predefined_symbols[i];
@@ -106,7 +106,7 @@ void add_predefined_symbols(void){
   }
 }
 
-// Exercice 5: Writing parse_A_instruction
+
 bool parse_A_instruction(const char *line, a_instruction *instr){
   char* s = malloc(strlen(line));
   strcpy(s, line+1);
@@ -126,4 +126,7 @@ bool parse_A_instruction(const char *line, a_instruction *instr){
   }
 
   return true;
+}
+void parse_C_instruction(char *line, c_instruction *instr){
+  
 }
