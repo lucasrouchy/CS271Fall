@@ -1,6 +1,8 @@
 #include "parser.h"
 #include "error.h"
 
+#define MAX_INSTRUCTION_COUNT   30000
+
 int main(int argc, char* argv[]) {
     // check that one argument has been passed
     if (argc != 2) {
@@ -14,11 +16,17 @@ int main(int argc, char* argv[]) {
       exit_program(EXIT_CANNOT_OPEN_FILE, argv[1]);
 
     }
+     //Exercise 10
 
+     c_instruction* instructions = malloc(MAX_INSTRUCTION_COUNT * sizeof(c_instruction));
     // call our function parse
-    parse(fin);
+    int ninstr = parse(fin, instructions);
+    printf("main: ninstr=%d\n", ninstr);
+
     // close your file pointer
     fclose(fin);
+
+    free(instructions);
 
     return 0;
 }
