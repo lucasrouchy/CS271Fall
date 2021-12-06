@@ -3,11 +3,12 @@
 #include "symtable.h"
 
 // exercice 4
-void parse(FILE* file) {
+int parse(FILE* file, c_instruction* instructions) {
     char line[MAX_LINE_LENGTH] = {0};
     int line_num = 0;
     int instr_num = 0;
     a_instruction instr;
+    c_instruction cinstr;
 
     add_predefined_symbols();
     symtable_display_table();
@@ -46,11 +47,14 @@ void parse(FILE* file) {
         }
         else if(is_Ctype(line)){
           inst_type = 'C';
+          parse_C_instruction(line, &cinstr);
         }
         printf("%c  %s\n",inst_type ,   line);
-        instr_num++;
+        instructions[instr_num++] = cinstr;
 
     }
+
+    return instr_num;
 }
 
 

@@ -18,7 +18,6 @@
 
 void add_predefined_symbols(void);
 char* strip(char* s);
-void parse(FILE* file);
 bool is_Atype(const char *);
 bool is_label(const char *);
 bool is_Ctype(const char *);
@@ -57,4 +56,5 @@ typedef struct instruction {
 
 bool parse_A_instruction(const char *line, a_instruction *instr);
 void parse_C_instruction(char *line, c_instruction *instr);
+int parse(FILE* file, c_instruction* instructions);
 #endif
