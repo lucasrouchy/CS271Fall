@@ -128,5 +128,31 @@ bool parse_A_instruction(const char *line, a_instruction *instr){
   return true;
 }
 void parse_C_instruction(char *line, c_instruction *instr){
-  
+
+  bool dbg = false;
+  if (dbg) printf("parse_C_instruction(line=\"%s\")\n", line);
+
+  // First tokenize the line by ";"
+  char *token1 = strtok(line,";");
+
+  char *token2 = strtok(NULL, "=");
+  if (token2 == NULL) {
+    char* token3 = strtok(token1, "=");
+    char* token4 = strtok(NULL, "=");               // comp
+        instr->dest = str_to_destid(token3);
+        if (dbg) printf("parse_C_instruction: destid=%d\n", instr->dest);
+        int a;
+        instr->comp = str_to_compid(token4, &a);
+        instr->a = a;
+        if (dbg) printf("parse_C_instruction: compid=%d, a=%d\n", instr->comp, instr->a);
+    }
+    else {
+
+        instr->dest = str_to_destid(token1);
+        instr->jump = str_to_jumpid(token2);
+        if (dbg) printf("parse_C_instruction: destid=%d\n", instr->dest);
+        if (dbg) printf("parse_C_instruction: jumpid=%d\n", instr->jump);
+    }
+
+
 }
