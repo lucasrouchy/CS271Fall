@@ -1,14 +1,15 @@
 #include "parser.h"
 #include "error.h"
 #include "symtable.h"
+#include "hack.h"
 
 // exercice 4
-int parse(FILE* file, c_instruction* instructions) {
+int parse(FILE* file, instruction* instructions) {
     char line[MAX_LINE_LENGTH] = {0};
     int line_num = 0;
     int instr_num = 0;
-    a_instruction instr;
-    c_instruction cinstr;
+    instruction instr;
+
 
     add_predefined_symbols();
     symtable_display_table();
@@ -24,37 +25,54 @@ int parse(FILE* file, c_instruction* instructions) {
             continue;
         char inst_type = {0};
         if (is_Atype(line)) {
-
-          if (!parse_A_instruction(line, &instr)){
+            inst_type = 'A';
+          if (!parse_A_instruction(line, &instr.instr.a)){
             exit_program(EXIT_INVALID_A_INSTR, line_num, line);
           }
-          inst_type = 'A';
+          instr.itype = INST_A;
         }
         else if (is_label(line)){
           inst_type= 'L';
           char new_label[sizeof(line)] = {0};
           extract_label(line,new_label);
-          if(isalpha(line[0])){
+          if(!isalpha(line[1])){
             exit_program(EXIT_INVALID_LABEL, line_num, line);
           }
           if(symtable_find(new_label) != NULL) {
             exit_program(EXIT_SYMBOL_ALREADY_EXISTS, line_num, line);
           }
           symtable_insert(new_label, instr_num);
-          continue;
-          printf("%c  %s\n",inst_type, new_label );
+
+          printf("%c  %s\n",inst_type, new_label);
           continue;
         }
         else if(is_Ctype(line)){
           inst_type = 'C';
-          parse_C_instruction(line, &cinstr);
+
+          char tmp_line[MAX_LINE_LENGTH] = {0};
+          strcpy(tmp_line, line);
+          parse_C_instruction(tmp_line, &instr.instr.c);
+
+          printf("JUMP:%d\n\n", instr.instr.c.jump);
+          if (instr.instr.c.comp == COMP_INVALID) {
+            exit_program(EXIT_INVALID_C_COMP);
+          }
+          else if(instr.instr.c.dest == DEST_INVALID){
+            exit_program(EXIT_INVALID_C_DEST);
+          }
+          else if (instr.instr.c.jump == JMP_INVALID){
+            exit_program(EXIT_INVALID_C_JUMP);
+          }
+
+          instr.itype = INST_C;
         }
-        printf("%c  %s\n",inst_type ,   line);
-        instructions[instr_num++] = cinstr;
+        printf("%c  %s\n",inst_type , line);
+        instructions[instr_num++] = instr;
 
     }
 
     return instr_num;
+
 }
 
 
@@ -140,6 +158,7 @@ void parse_C_instruction(char *line, c_instruction *instr){
   char *token1 = strtok(line,";");
 
   char *token2 = strtok(NULL, "=");
+
   if (token2 == NULL) {
     char* token3 = strtok(token1, "=");
     char* token4 = strtok(NULL, "=");               // comp

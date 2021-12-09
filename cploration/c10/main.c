@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     }
      //Exercise 10
 
-     c_instruction* instructions = malloc(MAX_INSTRUCTION_COUNT * sizeof(c_instruction));
+     instruction* instructions = malloc(MAX_INSTRUCTION_COUNT * sizeof(instruction));
     // call our function parse
     int ninstr = parse(fin, instructions);
     printf("main: ninstr=%d\n", ninstr);

@@ -25,21 +25,20 @@ typedef int16_t hack_addr;
 typedef int16_t opcode;
 char *extract_label(const char *line, char* label);
 
-enum inst_type {
-  invalid = -1,
-  Atype,
-  Ctype,
-};
+typedef enum instr_type {
+  INST_I = -1,
+  INST_A,
+  INST_C,
+} instr_type;
 
-typedef struct
-c_instruction {
+typedef struct {
   opcode a: 1;
   opcode comp: 7;
   opcode dest: 4;
   opcode jump: 4;
 } c_instruction;
 
-typedef struct a_instruction {
+typedef struct {
   union hack_addr {
       hack_addr address;
       char * label;
@@ -48,13 +47,14 @@ typedef struct a_instruction {
 } a_instruction;
 
 typedef struct instruction {
-  union AorC {
-    enum inst_type Atype;
-    enum inst_type Ctype;
-  } AorC;
+  union {
+    a_instruction a;
+    c_instruction c;
+  } instr;
+  instr_type itype;
 } instruction;
 
 bool parse_A_instruction(const char *line, a_instruction *instr);
 void parse_C_instruction(char *line, c_instruction *instr);
-int parse(FILE* file, c_instruction* instructions);
+int parse(FILE* file, instruction* instructions);
 #endif
