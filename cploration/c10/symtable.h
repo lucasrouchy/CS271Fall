@@ -12,7 +12,7 @@
 
 
 
-#define SYMBOL_TABLE_SIZE   100
+#define SYMBOL_TABLE_SIZE   30000
 
 typedef int16_t hack_addr;
 //Exercise 2

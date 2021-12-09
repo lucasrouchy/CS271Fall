@@ -157,16 +157,21 @@ void parse_C_instruction(char *line, c_instruction *instr){
   // First tokenize the line by ";"
   char *token1 = strtok(line,";");
 
-  char *token2 = strtok(NULL, "=");
+  char *token2 = strtok(NULL, ";");
 
-  if (token2 == NULL) {
-    char* token3 = strtok(token1, "=");
-    char* token4 = strtok(NULL, "=");               // comp
+  char *token3 = strtok(token1, "=");
+
+  char *token4 = strtok(NULL, "=");
+
+  if (token4 == NULL) {
+        token4 = token3;
+        token3 = NULL;
+                   // comp
         instr->dest = str_to_destid(token3);
         if (dbg) printf("parse_C_instruction: destid=%d\n", instr->dest);
-        int a;
-        instr->comp = str_to_compid(token4, &a);
-        instr->a = a;
+        int *a = malloc(sizeof(int));
+        instr->comp = str_to_compid(token4, a);
+        instr->a = (*a == 0) ? 0x1 : 0x0;
         if (dbg) printf("parse_C_instruction: compid=%d, a=%d\n", instr->comp, instr->a);
     }
     else {
