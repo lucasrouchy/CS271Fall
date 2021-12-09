@@ -186,6 +186,24 @@ void parse_C_instruction(char *line, c_instruction *instr){
         if (dbg) printf("parse_C_instruction: destid=%d\n", instr->dest);
         if (dbg) printf("parse_C_instruction: jumpid=%d\n", instr->jump);
     }
+}
+//instruction to opcode
+opcode instruction_to_opcode(c_instruction instr){
+  int dbg = false;
+  int a = instr.a;
+  int comp = instr.comp;
+  int dest = instr.dest;
+  int jump = instr.jump;
+  if (dbg == true) printf("instruction_to_opcode(a=%d, comp=0x%02X, dest=0x%01X, jump=0x%01X)\n", a, comp, dest, jump);
+// bit 15:14:13 always 111
+  opcode op = 0;
+    op |= (7 << 13);
+    op |= (a << 12);
+    op |= (comp << 6);
+    op |= (jump << 0);
+
+    return op;
+}
 
 void assemble(const char * file_name, instruction* instructions, int num_instructions){
   bool dbg = false;
@@ -226,11 +244,19 @@ void assemble(const char * file_name, instruction* instructions, int num_instruc
       }
       else {
           // A-type address
-          if (dbg == true) printf("assemble: A-type address, address=0x%02X\n", );
+          if (dbg == true) printf("assemble: A-type address, address=0x%02X\n", instr.instr.a.hack_addr.address);
+          op = instr.instr.a.hack_addr.address;
+
 
       }
     }
-  }
-}
+    else if (instr.itype == INST_C) {
+        if (dbg == true) printf("assemble: i=%d, INST_C\n", i);
+        //lookup the opcode
 
+
+    }
+
+  }
+  fclose(f);
 }
