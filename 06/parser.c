@@ -2,6 +2,11 @@
 #include "error.h"
 #include "symtable.h"
 #include "hack.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
 
 // exercice 4
 int parse(FILE* file, instruction* instructions) {
@@ -182,5 +187,15 @@ void parse_C_instruction(char *line, c_instruction *instr){
         if (dbg) printf("parse_C_instruction: jumpid=%d\n", instr->jump);
     }
 
+void assemble(const char * file_name, instruction* instructions, int num_instructions){
+  char *file_w_hack = "";
+  strcpy(file_w_hack, file_name);
+  strcat(file_w_hack, ".hack");
+  FILE *f = fopen(file_w_hack, "w");
+
+  for () {
+    
+  }
+}
 
 }
