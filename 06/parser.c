@@ -188,13 +188,48 @@ void parse_C_instruction(char *line, c_instruction *instr){
     }
 
 void assemble(const char * file_name, instruction* instructions, int num_instructions){
-  char *file_w_hack = "";
+  bool dbg = false;
+  char file_w_hack[1024];
   strcpy(file_w_hack, file_name);
   strcat(file_w_hack, ".hack");
   FILE *f = fopen(file_w_hack, "w");
+  static hack_addr address = 16;
 
-  for () {
-    
+  for (int i = 0; i < num_instructions; i++) {
+    instruction instr = instructions[i];
+    opcode op = 0;
+    if (instr.itype = INST_A) {
+      bool is_addr = instr.instr.a.is_addr;
+      if (dbg == true) printf("assemble: i=%d, INST_A, is_addr=%d\n", i, is_addr);
+      if (is_addr = false) {
+          // A-type label
+          if(dbg == true) printf("assemble: A-type label, label=%s\n",instr.instr.a.hack_addr.label);
+          // lookup the symbol table and set the opcode as the address
+          Symbol *item = (Symbol*) malloc(sizeof(Symbol));
+          item = symtable_find(instr.instr.a.hack_addr.label);
+          if (item == NULL) {
+            //if the label is not found it becomes a new variable that starts at 16
+            op = address;
+            // adding it to the symbol table
+            symtable_insert(instr.instr.a.hack_addr.label, address++);
+
+
+          }
+          else {
+              // setting opcode as address
+              op = item->address;
+
+              //free the memory associated with the label in the instruction
+              free(instr.instr.a.hack_addr.label);
+
+          }
+      }
+      else {
+          // A-type address
+          if (dbg == true) printf("assemble: A-type address, address=0x%02X\n", );
+
+      }
+    }
   }
 }
 
