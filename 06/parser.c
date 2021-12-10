@@ -204,6 +204,11 @@ opcode instruction_to_opcode(c_instruction instr){
 
     return op;
 }
+void opcode_to_binary(opcode op, char* op_str) {
+    for( int i = 15; i >= 0; i-- ) {
+        op_str[15-i] = ( op >> i ) & 1 ? 1 + '0' : 0 + '0';
+    }
+}
 
 void assemble(const char * file_name, instruction* instructions, int num_instructions){
   bool dbg = false;
@@ -253,9 +258,14 @@ void assemble(const char * file_name, instruction* instructions, int num_instruc
     else if (instr.itype == INST_C) {
         if (dbg == true) printf("assemble: i=%d, INST_C\n", i);
         //lookup the opcode
-
+        op = instruction_to_opcode(instr.instr.c);
 
     }
+    //print 16 character opcode using the opcode to binary macro
+    char op_str[20] = {0};
+    opcode_to_binary(op, op_str);
+    printf("%s\n", op_str);
+    fprintf(f, "%s\n", op_str);
 
   }
   fclose(f);

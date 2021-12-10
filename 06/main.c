@@ -20,8 +20,8 @@ int main(int argc, char* argv[]) {
 
     instruction* instructions = malloc(MAX_INSTRUCTION_COUNT * sizeof(instruction));
     // call our function parse
-    int ninstr = parse(fin, instructions);
-    printf("main: ninstr=%d\n", ninstr);
+    int num_instructions = parse(fin, instructions);
+    printf("main: num_instructions=%d\n", num_instructions);
 
     // close your file pointer
     fclose(fin);
