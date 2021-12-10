@@ -10,6 +10,7 @@
 
 // exercice 4
 int parse(FILE* file, instruction* instructions) {
+    char dbg = false;
     char line[MAX_LINE_LENGTH] = {0};
     int line_num = 0;
     int instr_num = 0;
@@ -17,7 +18,7 @@ int parse(FILE* file, instruction* instructions) {
 
 
     add_predefined_symbols();
-    symtable_display_table();
+    if (dbg == true) symtable_display_table();
 
     while(fgets(line, sizeof(line), file)) {
         line_num++;
@@ -221,10 +222,10 @@ void assemble(const char * file_name, instruction* instructions, int num_instruc
   for (int i = 0; i < num_instructions; i++) {
     instruction instr = instructions[i];
     opcode op = 0;
-    if (instr.itype = INST_A) {
+    if (instr.itype == INST_A) {
       bool is_addr = instr.instr.a.is_addr;
       if (dbg == true) printf("assemble: i=%d, INST_A, is_addr=%d\n", i, is_addr);
-      if (is_addr = false) {
+      if (is_addr == false) {
           // A-type label
           if(dbg == true) printf("assemble: A-type label, label=%s\n",instr.instr.a.hack_addr.label);
           // lookup the symbol table and set the opcode as the address
